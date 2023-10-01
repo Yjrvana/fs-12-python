@@ -28,16 +28,27 @@ def cmp_binary_search(arr, elem):
     return -1
 
 
+# non-optimal (why, and most importantly - why?)
 def solve(x):
     primes = eratosthenes_sieve(x)
     max_div = int(x ** 0.5) + 1
     return cmp_binary_search(primes, max_div)
 
 
-def main():
-    print(solve(int(input())))
+# optimal(!)
+# _______________________________
+def solve_1(x):
+    res, k = 0, 2
+    while k * k <= x:
+        if x % k == 0:
+            res = x
+            x //= k
+        else:
+            k += 1
+    if x > 1:
+        res = x
+    return res
+# ________________________________
 
-
-main()
 
 
