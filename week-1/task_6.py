@@ -1,0 +1,1 @@
+print((solve := lambda n, k: 0 if n == 0 else (solve(n - 1, k) + k) % n)(*map(int, input().split())))
