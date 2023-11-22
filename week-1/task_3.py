@@ -7,10 +7,15 @@ def find_max(n):
         prev, cur = cur, prev + cur
 
 
-num = int(input())
-res = 0
-while num > 0:
-    a1, a2 = find_max(num)
-    num -= a1
-    res += (2 ** (a2 - 2))
-print(bin(res)[2:])
+def main():
+    num = int(input())
+    res = 0
+    while num > 0:
+        a1, a2 = find_max(num)
+        num -= a1
+        res += (2 ** (a2 - 2))
+    print(bin(res)[2:])
+
+
+if __name__ == "__main__":
+    main()

@@ -12,3 +12,7 @@ def main():
     arr = list(map(int, input().split()))
     k = int(input())
     print(solve(arr, k))
+
+
+if __name__ == "__main__":
+    main()

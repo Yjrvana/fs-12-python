@@ -16,3 +16,11 @@ def factorial_zeros(n):
         r += 1
     return res
 
+
+def main():
+    print(factorial(10))
+    print(factorial_zeros(10))
+
+
+if __name__ == "__main__":
+    main()

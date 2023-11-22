@@ -16,7 +16,7 @@ def print_divider(s, ln=40):
     print(s * ln)
 
 
-def program():
+def main():
     x0, n, A = input_dat()
     print_divider('_')
     p = calc_val(x0, n, A)
@@ -29,8 +29,5 @@ def program():
     print(f'Значение производной многочлена в точке x0: {p1}')
 
 
-def main():
-    program()
-
-
-main()
+if __name__ == "__main__":
+    main()
