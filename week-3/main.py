@@ -1,82 +1,45 @@
-import datetime
-from enum import Enum
+import random
 
 
-class Employee:
-    def __init__(self, name, salary, year, month, day):
-        self.__name = name
-        self.__salary = salary
-        self.__hire_day = datetime.date(year, month, day)
+class Transport:
+    def __init__(self, speed, km):
+        self.__speed = speed
+        self.__current_km = 0
 
-    def get_name(self):
-        return self.__name
+    @property
+    def speed(self):
+        return self.__speed
 
-    def get_salary(self):
-        return self.__salary
+    @property
+    def current_km(self):
+        return self.__current_km
 
-    def get_hire_day(self):
-        return self.__hire_day
-
-    def raise_salary(self, percent):
-        self.__salary += (self.__salary * percent / 100)
+    def step(self):
+        self.__current_km += self.__speed
 
 
-class Manager(Employee):
-    def __init__(self, name, salary, year, month, day, manager_rating):
-        super().__init__(name, salary, year, month, day)
-        self.__manager_rating = manager_rating
-        self.__bonus = 0
+class Tram(Transport):
+    def __init__(self, speed, km, passengers):
+        super().__init__(speed, km)
+        self.__passengers = passengers
 
-    def improve_manager_rating(self, add_rating):
-        self.__manager_rating += add_rating
-
-    def set_bonus(self, bonus):
-        self.__bonus = bonus
-
-    def get_salary(self):
-        return super().get_salary() + self.__bonus
+    def make_stop(self, end=False):
+        self.__passengers -= random.randint(0, self.__passengers)
+        self.__passengers += random.randint(0, 10)
+        if end:
+            self.__passengers = 0
 
 
-class ExecutiveManager(Manager):
-    def __init__(self, name, salary, year, month, day, manager_rating):
-        super().__init__(name, salary, year, month, day, manager_rating)
+class Car(Transport):
+    def __init__(self, speed, km, max_fuel, current_fuel):
+        super().__init__(speed, km)
+        self.__max_fuel = max_fuel
+        self.__current_fuel = current_fuel
 
+    def step(self):
+        if self.__current_fuel == 0:
+            return
+        super().step()
 
-class Secretary(Employee):
-    def __init__(self, name, salary, year, month, day, manager: Manager):
-        super().__init__(name, salary, year, month, day)
-        self.__manager = manager
-
-    def set_manager(self, new_manager):
-        self.__manager = new_manager
-
-
-class ProgrammerLevel(Enum):
-    JUNIOR = 1
-    MIDDLE = 2
-    SENIOR = 3
-    LEAD = 4
-
-
-class ProgrammerSpecialization(Enum):
-    FRONTEND = 1
-    BACKEND = 2
-    MOBILE = 3
-    DATA_SCIENCE = 4
-    TESTING = 5
-
-
-class Programmer(Employee):
-    def __init__(self, name, salary, year, month, day,
-                       level: ProgrammerLevel,
-                       specialization: ProgrammerSpecialization):
-        super().__init__(name, salary, year, month, day)
-        self.__level = level
-        self.__specialization = specialization
-
-    def set_level(self, new_level: ProgrammerLevel):
-        self.__level = new_level
-
-    def get_specialization(self):
-        return self.__specialization
-
+    def fill_up(self):
+        self.__current_fuel = self.__max_fuel

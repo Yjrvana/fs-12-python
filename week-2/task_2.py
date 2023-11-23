@@ -9,34 +9,14 @@ def eratosthenes_sieve(n):
     return res
 
 
-def cmp_binary_search(arr, elem):
-    if elem <= arr[0]:
-        return 0
-    if elem >= arr[-1]:
-        return len(arr) - 1
-
-    low = 0
-    high = len(arr) - 1
-    while high >= 0 and low < len(arr) - 1:
-        mid = (low + high) // 2
-        if (mid == len(arr) - 1) or (arr[mid] <= elem < arr[mid + 1]):
-            return mid
-        elif arr[mid] > elem:
-            high = mid - 1
-        elif arr[mid] < elem:
-            low = mid + 1
+def solve(x):
+    primes = eratosthenes_sieve(x)
+    for i in range(len(primes) - 1, -1, -1):
+        if x % primes[i] == 0:
+            return primes[i]
     return -1
 
 
-# non-optimal (zachem???...)
-def solve(x):
-    primes = eratosthenes_sieve(x)
-    max_div = int(x ** 0.5) + 1
-    return cmp_binary_search(primes, max_div)
-
-
-# optimal(!)
-# _______________________________
 def solve_1(x):
     res, k = 0, 2
     while k * k <= x:
@@ -48,10 +28,10 @@ def solve_1(x):
     if x > 1:
         res = x
     return res
-# ________________________________
+
 
 def main():
-    pass
+    print(solve(21))
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 def calc_val(x, deg, cf):
-    res = cf[0]
-    for k in range(1, deg + 1):
-        res = res * x + cf[k]
+    res = 0
+    for i in range(deg, -1, -1):
+        res += cf[deg - i] * (x ** deg)
     return res
 
 
@@ -17,13 +17,16 @@ def print_divider(s, ln=40):
 
 
 def main():
-    x0, n, A = input_dat()
+    n, x0, A = input_dat()
     print_divider('_')
     p = calc_val(x0, n, A)
 
     A_d = A[::]
+    kn = n
     for i in range(len(A)):
-        A[i] *= (n - i)
+        A_d[i] *= kn
+        kn -= 1
+
     p1 = calc_val(x0, n - 1, A_d)
     print(f'Значение многочлена в точке x0: {p}')
     print(f'Значение производной многочлена в точке x0: {p1}')
